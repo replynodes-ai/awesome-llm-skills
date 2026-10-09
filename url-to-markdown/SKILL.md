@@ -25,20 +25,26 @@ Use the ReplyNodes Markdown API to retrieve a public webpage as clean Markdown f
 
 ### Basic Usage
 
-Run the canonical command with the target host and path appended to the endpoint:
+Run the canonical command with the complete target URL appended after the endpoint:
 
 ```bash
-curl -sS https://md.replynodes.com/example.com
+curl --fail-with-body 'https://md.replynodes.com/https://replynodes.com/'
 ```
 
-Replace `example.com` with the public host and path you want to read. Do not put a full URL inside another URL path.
+For a bare-domain shorthand, append the host directly:
+
+```bash
+curl --fail-with-body 'https://md.replynodes.com/example.com'
+```
+
+For a page path or query, preserve the complete target after the endpoint. Do not claim that a target was fetched unless the command returns it.
 
 ### Practical Examples
 
 Retrieve a public documentation guide:
 
 ```bash
-curl -sS https://md.replynodes.com/docs.example.com/guide
+curl --fail-with-body 'https://md.replynodes.com/https://docs.example.com/guide'
 ```
 
 Then ask the agent to:
@@ -66,22 +72,22 @@ Fetch a public changelog and ask the agent to identify entries related to a prod
 
 **User request:** “Fetch https://example.com and return a concise Markdown summary with the page title, main headings, and links.”
 
-**Expected Markdown-oriented result:**
+**Output format template (not fetched content):**
 
 ```markdown
-# Example Domain
+# <Page title>
 
 ## Summary
 
-- A concise summary of the page content.
+- <Concise summary based only on the returned Markdown.>
 
 ## Main headings
 
-- Heading names copied from the fetched page.
+- <Heading copied from the returned page>
 
 ## Links
 
-- [Link text](https://example.com/path)
+- [<Link text>](<URL from the returned page>)
 ```
 
 ## Tips and Limitations
@@ -105,6 +111,11 @@ Fetch a public changelog and ask the agent to identify entries related to a prod
 
 Validation note: verify the skill file has the required frontmatter and sections, then run the canonical command against a public test page such as `example.com`. Confirm that the response is readable Markdown before using the result in an agent workflow.
 
-The repository contribution check also requires the skill to remain a single lowercase, hyphenated folder containing this `SKILL.md` file. The README entry should continue to point to the canonical skill source.
+The repository contribution check also requires the skill to remain a single lowercase, hyphenated folder containing this `SKILL.md` file.
+
+Canonical references:
+
+- [ReplyNodes agent-skills source](https://github.com/replynodes/replynodes-agent-skills)
+- [ReplyNodes Markdown API documentation](https://replynodes.com/markdown-api/)
 
 **Inspired by:** ReplyNodes’ public URL-to-Markdown workflow.
