@@ -48,7 +48,7 @@ Then ask the agent to:
 - Compare the guide with another public reference.
 - Identify the sections relevant to a specific user question.
 
-## Example Use Cases
+## Common Use Cases
 
 ### Documentation Research
 
@@ -61,6 +61,28 @@ Retrieve a public article, ask for a short summary, and request a separate list 
 ### Changelog Review
 
 Fetch a public changelog and ask the agent to identify entries related to a product area or version. Preserve the entry dates and links when reporting the result.
+
+## Example
+
+**User request:** “Fetch https://example.com and return a concise Markdown summary with the page title, main headings, and links.”
+
+**Expected Markdown-oriented result:**
+
+```markdown
+# Example Domain
+
+## Summary
+
+- A concise summary of the page content.
+
+## Main headings
+
+- Heading names copied from the fetched page.
+
+## Links
+
+- [Link text](https://example.com/path)
+```
 
 ## Tips and Limitations
 
